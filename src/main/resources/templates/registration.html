@@ -14,19 +14,26 @@
 <body>
 <div class="container">
     <form th:object="${userForm}" class="form-signin" method="post" action="/registration">
+        <input
+                type="hidden"
+                th:name="${_csrf.parameterName}"
+                th:value="${_csrf.token}"/>
         <h2 class="form-signin-heading">Registration</h2>
         <p>
             <label for="username" class="sr-only">Username</label>
-            <input th:field="*{username}" type="text" id="username" name="username" class="form-control" placeholder="Username" required
+            <input th:field="*{username}" type="text" id="username" name="username" class="form-control"
+                   placeholder="Username" required
                    autofocus>
         </p>
         <p>
             <label for="password" class="sr-only">Password</label>
-            <input th:field="*{password}" type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+            <input th:field="*{password}" type="password" id="password" name="password" class="form-control"
+                   placeholder="Password" required>
         </p>
         <p>
             <label for="password" class="sr-only">Repeat Password</label>
-            <input th:field="*{passwordConfirm}" type="password" id="password2" name="password2" class="form-control" placeholder="Password" required>
+            <input th:field="*{passwordConfirm}" type="password" id="password2" name="password2" class="form-control"
+                   placeholder="Password" required>
         </p>
         <input name="_csrf" type="hidden" value="72867d05-72cd-4b06-b8b2-73364f717575"/>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
