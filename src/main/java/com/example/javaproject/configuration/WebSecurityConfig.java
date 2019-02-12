@@ -1,6 +1,7 @@
 package com.example.javaproject.configuration;
 
 import com.example.javaproject.data.UserRepository;
+import com.example.javaproject.models.RoleName;
 import com.example.javaproject.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,7 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/welcome").authenticated().
-                anyRequest().permitAll().
+                antMatchers("/admin").hasAuthority(RoleName.ADMIN.name).and().
+                authorizeRequests().anyRequest().permitAll().
                 and().formLogin().loginPage("/login").permitAll().
                 and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
     }
