@@ -63,4 +63,9 @@ public class AuthController {
     public String welcome(Model model) {
         return "welcome";
     }
+
+    @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
+    public String test(Model model) {
+        return "test";
+    }
 }

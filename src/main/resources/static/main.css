@@ -1,2 +1,11 @@
 .main-site-container {
 }
+
+.form-control {
+    margin-bottom: 10px;
+}
+
+.invalid-feedback {
+    display: block;
+    margin: 4px auto 10px;
+}
