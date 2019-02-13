@@ -9,3 +9,7 @@
     display: block;
     margin: 4px auto 10px;
 }
+
+.nav-right-button {
+    margin: auto 4px;
+}

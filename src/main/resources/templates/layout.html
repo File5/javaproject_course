@@ -46,7 +46,12 @@
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-            <a class="btn btn-outline-success" href="#" role="button">Login</a>
+            <span class="navbar-text nav-right-button" th:if="${@templateHelperImpl.loggedIn}" th:text="${@templateHelperImpl.admin ? 'Admin' : 'User'}">User</span>
+            <a class="nav-item nav-link nav-right-button" th:if="${@templateHelperImpl.loggedIn}"
+               th:text="${@templateHelperImpl.username}"
+               href="#">Username</a>
+            <a class="btn btn-outline-success nav-right-button" href="#" role="button" th:unless="${@templateHelperImpl.loggedIn}" th:href="@{/login}">Login</a>
+            <a class="btn btn-outline-danger nav-right-button" href="#" role="button" th:if="${@templateHelperImpl.loggedIn}" th:href="@{/logout}">Logout</a>
         </div>
 
     </div>
