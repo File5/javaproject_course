@@ -11,7 +11,7 @@
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/main.css}">
 
-    <title th:text="'Java Project' + (${#strings.isEmpty(title)}) ? '' : ' – ' + title">Java Project</title>
+    <title th:text="${'Java Project' + (#strings.isEmpty(title) ? '' : ' – ' + title)}">Java Project</title>
 </head>
 <body>
 <nav th:fragment="nav" class="navbar navbar-expand-lg navbar-light bg-light">
