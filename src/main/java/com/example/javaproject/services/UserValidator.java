@@ -26,21 +26,27 @@ public class UserValidator implements Validator {
     public void validate(Object o, Errors errors) {
         User user = (User) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
-        if (user.getUsername().length() < 1 || user.getUsername().length() > 32) {
-            errors.rejectValue("username", "Size.userForm.username");
-        }
+        checkValidString(errors, "username", user.getUsername(), 1, 32, "Size.userForm.username");
+
         if (userService.findByUsername(user.getUsername()) != null) {
             errors.rejectValue("username", "Duplicate.userForm.username");
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (user.getPassword().length() < 4 || user.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size.userForm.password");
-        }
+        checkValidString(errors, "password", user.getPassword(), 4, 32, "Size.userForm.password");
 
+        checkPasswordsMatch(errors, user);
+    }
+
+    protected void checkPasswordsMatch(Errors errors, User user) {
         if (!user.getPasswordConfirm().equals(user.getPassword())) {
             errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
+        }
+    }
+
+    protected void checkValidString(Errors errors, String field, String value, int minLength, int maxLength, String s) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, field, "NotEmpty");
+        if (value.length() < minLength || value.length() > maxLength) {
+            errors.rejectValue(field, s);
         }
     }
 }

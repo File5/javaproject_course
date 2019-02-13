@@ -9,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -33,8 +35,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(Collections.singleton(roleRepository.findByName(RoleName.USER.name)));
-        userRepository.save(user);
+        user.setRoles(new HashSet<>(Collections.singleton(roleRepository.findByName(RoleName.USER.name))));
+        userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public void update(User user) {
+        Optional<User> existingUser = userRepository.findById(user.getId());
+        if (existingUser.isPresent()) {
+            user.setPassword(existingUser.get().getPassword());
+            userRepository.saveAndFlush(user);
+        }
     }
 
     @Override
