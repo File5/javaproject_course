@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="layout :: head('Test page')">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <h1>Welcome!</h1>
-    <p th:text="${2+2}">Default</p>
+    <nav th:replace="layout :: nav"></nav>
+
+    <div class="container main-site-container">
+
+        <h1>Welcome!</h1>
+        <p th:text="${2+2}">Default</p>
+
+    </div>
+
+    <th:block th:replace="layout :: footer">
+    </th:block>
 </body>
 </html>
