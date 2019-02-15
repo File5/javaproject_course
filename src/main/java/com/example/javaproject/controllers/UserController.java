@@ -1,11 +1,9 @@
 package com.example.javaproject.controllers;
 
-import com.example.javaproject.data.UserRepository;
 import com.example.javaproject.models.User;
 import com.example.javaproject.services.SecurityService;
 import com.example.javaproject.services.UpdateUserValidator;
 import com.example.javaproject.services.UserService;
-import com.example.javaproject.services.UserValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,7 +31,7 @@ public class UserController {
     public String account(Model model) {
         User activeUser = securityService.findLoggedInUser();
         model.addAttribute("user", activeUser);
-        return "account";
+        return "account/account";
     }
 
     @RequestMapping(value = "/account", method = RequestMethod.POST)
@@ -43,7 +41,7 @@ public class UserController {
         userValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "account";
+            return "account/account";
         }
 
         String newUsername = user.getUsername();
@@ -66,13 +64,13 @@ public class UserController {
             securityService.autologin(activeUser.getUsername(), activeUser.getPassword());
         }
 
-        return "account";
+        return "account/account";
     }
 
     @RequestMapping(value = {"/users"}, method = RequestMethod.GET)
     public String listOfUsers(Model model) {
         List<User> users = userService.getAll();
         model.addAttribute("users", users);
-        return "user_list";
+        return "users/user_list";
     }
 }

@@ -30,7 +30,7 @@ public class AuthController {
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
 
-        return "registration";
+        return "account/registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -38,7 +38,7 @@ public class AuthController {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "account/registration";
         }
 
         userService.save(userForm);
@@ -56,7 +56,7 @@ public class AuthController {
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
 
-        return "login";
+        return "account/login";
     }
 
     @RequestMapping(value = {"/welcome"}, method = RequestMethod.GET)

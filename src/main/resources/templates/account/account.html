@@ -10,7 +10,7 @@
 
 <div class="container main-site-container">
 
-    <form th:object="${user}" method="post" th:action="@{/account}">
+    <form th:object="${user}" method="post" th:action="@{/templates/account}">
         <input
                 type="hidden"
                 th:name="${_csrf.parameterName}"
