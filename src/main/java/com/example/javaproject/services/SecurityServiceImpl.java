@@ -25,9 +25,9 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Override
     public String findLoggedInUsername() {
-        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (user instanceof org.springframework.security.core.userdetails.User) {
-            return ((org.springframework.security.core.userdetails.User) user).getUsername();
+        User user = findLoggedInUser();
+        if (user != null) {
+            return user.getUsername();
         }
 
         return null;
@@ -56,5 +56,10 @@ public class SecurityServiceImpl implements SecurityService{
         if (usernamePasswordAuthenticationToken.isAuthenticated()) { // if authenticated successfully - update context
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
+    }
+
+    @Override
+    public void logout() {
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 }

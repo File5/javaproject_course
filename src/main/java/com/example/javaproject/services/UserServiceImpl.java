@@ -19,13 +19,15 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final RoleService roleService;
+    private final SecurityService securityService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, RoleService roleService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, RoleService roleService, SecurityService securityService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.roleService = roleService;
+        this.securityService = securityService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 
         for (RoleName roleName : RoleName.values()) {
@@ -47,6 +49,11 @@ public class UserServiceImpl implements UserService {
             user.setPassword(existingUser.get().getPassword());
             userRepository.saveAndFlush(user);
         }
+    }
+
+    @Override
+    public void delete(User user) {
+        userRepository.delete(user);
     }
 
     @Override

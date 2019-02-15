@@ -104,4 +104,19 @@ public class UserController {
 
         return "redirect:/users";
     }
+
+    @RequestMapping(value = {"/users/{username}/delete"}, method = RequestMethod.GET)
+    public String deleteUserConfirmation(Model model, @PathVariable("username") String username) {
+        model.addAttribute("username", username);
+        return "users/user_delete";
+    }
+
+    @RequestMapping(value = {"/users/{username}/delete"}, method = RequestMethod.POST)
+    public String deleteUser(Model model, @PathVariable("username") String username) {
+        User user = userService.findByUsername(username);
+        if (user != null) {
+            userService.delete(user);
+        }
+        return "redirect:/users";
+    }
 }
