@@ -14,3 +14,11 @@
 .nav-right-button {
     margin: auto 4px;
 }
+
+.actions-cell {
+    padding: 8px;
+}
+
+.list-head-actions {
+    margin: 8px 0;
+}

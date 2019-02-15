@@ -3,6 +3,7 @@ package com.example.javaproject.services;
 import com.example.javaproject.data.RoleRepository;
 import com.example.javaproject.models.Role;
 import com.example.javaproject.models.RoleName;
+import com.example.javaproject.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,11 @@ public class TemplateHelperImpl implements TemplateHelper {
     @Override
     public boolean isAdmin() {
         return securityService.findLoggedInUser().getRoles().contains(adminRole);
+    }
+
+    @Override
+    public boolean isAdmin(User user) {
+        return user.getRoles().contains(adminRole);
     }
 
     @Override

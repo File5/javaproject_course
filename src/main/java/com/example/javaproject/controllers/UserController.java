@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.HashSet;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -66,5 +67,12 @@ public class UserController {
         }
 
         return "account";
+    }
+
+    @RequestMapping(value = {"/users"}, method = RequestMethod.GET)
+    public String listOfUsers(Model model) {
+        List<User> users = userService.getAll();
+        model.addAttribute("users", users);
+        return "user_list";
     }
 }
