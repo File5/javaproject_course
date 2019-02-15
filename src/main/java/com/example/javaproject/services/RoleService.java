@@ -4,6 +4,7 @@ import com.example.javaproject.models.Role;
 import com.example.javaproject.models.User;
 
 public interface RoleService {
+    Role findRoleByName(String name);
     void createRole(String name);
     void deleteRole(String name);
     void addRoleToUser(Role role, User user);

@@ -11,11 +11,19 @@ import org.springframework.stereotype.Service;
 public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public RoleServiceImpl(RoleRepository roleRepository) {
+    public RoleServiceImpl(RoleRepository roleRepository, UserRepository userRepository) {
         this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
     }
+
+    @Override
+    public Role findRoleByName(String name) {
+        return roleRepository.findByName(name);
+    }
+
     @Override
     public void createRole(String name) {
         if (roleRepository.findByName(name) == null) {
@@ -36,10 +44,12 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void addRoleToUser(Role role, User user) {
         user.getRoles().add(role);
+        userRepository.saveAndFlush(user);
     }
 
     @Override
     public void removeRoleFromUser(Role role, User user) {
         user.getRoles().remove(role);
+        userRepository.saveAndFlush(user);
     }
 }

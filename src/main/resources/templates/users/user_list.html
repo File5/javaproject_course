@@ -26,7 +26,7 @@
                 <td th:text="${user.username}">Mark</td>
                 <td th:text="${@templateHelperImpl.isAdmin(user) ? 'Admin' : 'User'}">Otto</td>
                 <td class="actions-cell">
-                    <a class="btn btn-outline-dark btn-sm" href="#" role="button">Modify role</a>
+                    <a class="btn btn-outline-dark btn-sm" th:href="|/users/${user.username}/changeRole|" role="button">Change role</a>
                     <a class="btn btn-outline-danger btn-sm" href="#" role="button">Delete</a>
                 </td>
             </tr>
