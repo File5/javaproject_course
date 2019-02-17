@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout :: head(${create ? 'Create task' : 'Edit task'})">
+<head th:replace="layout :: head(${create ? 'Create project' : 'Edit project'})">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -9,9 +9,9 @@
     <nav th:replace="layout :: nav"></nav>
 
     <div class="container main-site-container">
-        <h1 th:text="${create ? 'Create task' : 'Edit task'}"></h1>
+        <h1 th:text="${create ? 'Create project' : 'Edit project'}"></h1>
 
-        <form th:object="${task}" method="post" th:action="${create} ? '/tasks/new' : |/tasks/${task.id}/edit|">
+        <form th:object="${project}" method="post" th:action="${create} ? '/projects/new' : |/projects/${project.id}/edit|">
             <div class="form-group row">
                 <label for="staticId" class="col-sm-2 col-form-label">Id</label>
                 <div class="col-sm-10">
@@ -20,34 +20,26 @@
             </div>
             <!--/* Field input declaration. Copy and paste for each field.
                    Do not forget to change th:with="fieldName=${'Displayed field name'}" and th:field="*{entityFieldName}" */-->
-            <div class="form-group row" th:with="fieldName=${'Title'}">
+            <div class="form-group row" th:with="fieldName=${'Name'}">
                 <label th:for="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" class="col-sm-2 col-form-label" th:text="${fieldName}">Created At</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{title}" class="form-control" th:id="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" th:placeholder="${fieldName}">
+                    <input type="text" th:field="*{name}" class="form-control" th:id="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" th:placeholder="${fieldName}">
                 </div>
             </div>
             <!--/* Field input declaration. Copy and paste for each field.
                    Do not forget to change th:with="fieldName=${'Displayed field name'}" and th:field="*{entityFieldName}" */-->
-            <div class="form-group row" th:with="fieldName=${'Description'}">
+            <div class="form-group row" th:with="fieldName=${'Start Date'}">
                 <label th:for="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" class="col-sm-2 col-form-label" th:text="${fieldName}">Created At</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{description}" class="form-control" th:id="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" th:placeholder="${fieldName}">
+                    <input type="text" th:field="*{startDate}" class="form-control" th:id="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" th:placeholder="${fieldName}">
                 </div>
             </div>
             <!--/* Field input declaration. Copy and paste for each field.
                    Do not forget to change th:with="fieldName=${'Displayed field name'},readonly=${true OR false}" and th:field="*{entityFieldName}" */-->
-            <div class="form-group row" th:with="fieldName=${'Created At'},readonly=${true}">
+            <div class="form-group row" th:with="fieldName=${'End Date'},readonly=${false}">
                 <label th:for="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" class="col-sm-2 col-form-label" th:text="${fieldName}">Created At</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{createdAt}" th:readonly="${readonly}" class="form-control" th:id="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" th:placeholder="${fieldName}">
-                </div>
-            </div>
-            <!--/* Field input declaration. Copy and paste for each field.
-                   Do not forget to change th:with="fieldName=${'Displayed field name'},readonly=${true OR false}" and th:field="*{entityFieldName}" */-->
-            <div class="form-group row" th:with="fieldName=${'Closed At'},readonly=${false}">
-                <label th:for="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" class="col-sm-2 col-form-label" th:text="${fieldName}">Created At</label>
-                <div class="col-sm-10">
-                    <input type="text" th:field="*{closedAt}" th:readonly="${readonly}" class="form-control" th:id="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" th:placeholder="${fieldName}">
+                    <input type="text" th:field="*{endDate}" th:readonly="${readonly}" class="form-control" th:id="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" th:placeholder="${fieldName}">
                 </div>
             </div>
             <!--/* Relation field declaration. Copy and paste for each field.
@@ -61,7 +53,7 @@
                            th:id="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" th:placeholder="${fieldName}">
                 </div>
                 <div class="col-sm-1" th:unless="${create}">
-                    <a class="btn btn-success" th:href="|/tasks/${task.id}/editAssignedTo|" role="button">Change</a>
+                    <a class="btn btn-success" th:href="|/projects/${project.id}/editAssignedTo|" role="button">Change</a>
                 </div>
             </div>
             <button type="submit" class="btn btn-lg btn-primary">Save</button>

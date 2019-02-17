@@ -43,6 +43,8 @@ public class TaskController {
     @RequestMapping(value = {"/tasks/{id}/edit"}, method = RequestMethod.POST)
     public String saveTask(@ModelAttribute("task") Task task, BindingResult bindingResult, Model model, @PathVariable("id") Long id) {
         task.setId(id);
+        Task existingTask = taskService.findById(id);
+        task.setAssignedTo(existingTask.getAssignedTo());
         taskService.save(task);
         return "redirect:/tasks";
     }
