@@ -1,7 +1,9 @@
 package com.example.javaproject.controllers;
 
+import com.example.javaproject.models.Project;
 import com.example.javaproject.models.Task;
 import com.example.javaproject.models.User;
+import com.example.javaproject.services.ProjectService;
 import com.example.javaproject.services.TaskService;
 import com.example.javaproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,13 @@ import java.util.stream.Collectors;
 public class TaskController {
     private final TaskService taskService;
     private final UserService userService;
+    private final ProjectService projectService;
 
     @Autowired
-    public TaskController(TaskService taskService, UserService userService) {
+    public TaskController(TaskService taskService, UserService userService, ProjectService projectService) {
         this.taskService = taskService;
         this.userService = userService;
+        this.projectService = projectService;
     }
 
     @RequestMapping(value = {"/tasks"}, method = RequestMethod.GET)
@@ -45,6 +49,7 @@ public class TaskController {
         task.setId(id);
         Task existingTask = taskService.findById(id);
         task.setAssignedTo(existingTask.getAssignedTo());
+        task.setProject(existingTask.getProject());
         taskService.save(task);
         return "redirect:/tasks";
     }
@@ -98,6 +103,48 @@ public class TaskController {
             task.setAssignedTo(user);
         } else {
             task.setAssignedTo(null);
+        }
+        taskService.save(task);
+
+        return "redirect:/tasks";
+    }
+
+    @RequestMapping(value = {"/tasks/{id}/editProject"}, method = RequestMethod.GET)
+    public String getEditProjectForm(Model model, @PathVariable("id") Long id) {
+        Task task = taskService.findById(id);
+        List<Project> projects = projectService.getAll();
+        Map<Long, Project> values = projects.stream().collect(Collectors.toMap(
+                Project::getId,
+                Function.identity(),
+                (e1, e2) -> e2,
+                LinkedHashMap::new
+        ));
+        Long selectedId = task.getProject() != null ? task.getProject().getId() : null;
+        int selectedIndex = -1;
+        int i = 0;
+        for (Project project : projects) {
+            if (Objects.equals(project.getId(), selectedId)) {
+                selectedIndex = i;
+            }
+            i++;
+        }
+        model.addAttribute("create", false);
+        model.addAttribute("nullable", true);
+        model.addAttribute("task", task);
+        model.addAttribute("values", values);
+        model.addAttribute("checkedIndex", selectedIndex);
+        return "tasks/task_edit_project";
+    }
+
+    @RequestMapping(value = {"/tasks/{id}/editProject"}, method = RequestMethod.POST)
+    public String saveTaskProject(Model model, @PathVariable("id") Long id, @RequestParam("radioProject") Long projectId) {
+        Task task = taskService.findById(id);
+
+        if (projectId != null) {
+            Project project = projectService.findById(projectId);
+            task.setProject(project);
+        } else {
+            task.setProject(null);
         }
         taskService.save(task);
 

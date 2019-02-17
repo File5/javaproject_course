@@ -64,6 +64,20 @@
                     <a class="btn btn-success" th:href="|/tasks/${task.id}/editAssignedTo|" role="button">Change</a>
                 </div>
             </div>
+            <!--/* Relation field declaration. Copy and paste for each field.
+                   Do not forget to change th:with="fieldName=${'Displayed field name'},readonly=${true OR false}" and th:field="*{entityFieldName}" */-->
+            <div class="form-group row" th:with="fieldName=${'Project'},readonly=${true}">
+                <label th:for="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" class="col-sm-2 col-form-label" th:text="${fieldName}">Created At</label>
+                <div th:class="${create} ? 'col-sm-10' : 'col-sm-9'">
+                    <input type="text"
+                           th:value="*{project != null} ? |(Id *{project.id}) *{project.name}| : ''"
+                           th:readonly="${readonly}" class="form-control"
+                           th:id="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" th:placeholder="${fieldName}">
+                </div>
+                <div class="col-sm-1" th:unless="${create}">
+                    <a class="btn btn-success" th:href="|/tasks/${task.id}/editProject|" role="button">Change</a>
+                </div>
+            </div>
             <button type="submit" class="btn btn-lg btn-primary">Save</button>
         </form>
     </div>

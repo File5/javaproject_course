@@ -17,6 +17,7 @@ public class Task {
     private Date createdAt;
     private Date closedAt;
     private User assignedTo;
+    private Project project;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -72,6 +73,17 @@ public class Task {
 
     public void setClosedAt(Date closedAt) {
         this.closedAt = closedAt;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "project_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     @Override

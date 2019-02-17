@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "projects")
@@ -16,6 +17,8 @@ public class Project {
     private Date startDate;
     private Date endDate;
     private User assignedTo;
+
+    private Set<Task> tasks;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -62,6 +65,15 @@ public class Project {
 
     public void setAssignedTo(User assignedTo) {
         this.assignedTo = assignedTo;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
