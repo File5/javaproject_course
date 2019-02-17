@@ -38,4 +38,9 @@ public class TemplateHelperImpl implements TemplateHelper {
     public String getUsername() {
         return securityService.findLoggedInUsername();
     }
+
+    @Override
+    public String removeSpaces(String fieldName) {
+        return fieldName.replaceAll("\\s+","");
+    }
 }

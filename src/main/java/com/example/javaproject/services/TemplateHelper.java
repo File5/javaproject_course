@@ -7,4 +7,6 @@ public interface TemplateHelper {
     boolean isAdmin();
     boolean isAdmin(User user);
     String getUsername();
+
+    String removeSpaces(String fieldName);
 }
