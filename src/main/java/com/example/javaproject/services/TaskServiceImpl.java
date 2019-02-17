@@ -5,6 +5,7 @@ import com.example.javaproject.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void save(Task task) {
+        if (task.getId() != null) {
+            Optional<Task> existingTask = taskRepository.findById(task.getId());
+
+            task.setCreatedAt(existingTask.isPresent() ? existingTask.get().getCreatedAt() : new Date());
+        } else {
+            task.setCreatedAt(new Date());
+        }
         taskRepository.saveAndFlush(task);
     }
 }

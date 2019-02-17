@@ -13,6 +13,7 @@ public class Task {
     private String title;
     private String description;
     private Date createdAt;
+    private Date closedAt;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,6 +49,15 @@ public class Task {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
+    public Date getClosedAt() {
+        return closedAt;
+    }
+
+    public void setClosedAt(Date closedAt) {
+        this.closedAt = closedAt;
     }
 
     @Override

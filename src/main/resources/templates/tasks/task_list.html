@@ -12,7 +12,7 @@
     <h1>Tasks</h1>
 
     <div class="list-head-actions">
-        <a class="btn btn-success" href="#" role="button">Create new</a>
+        <a class="btn btn-success" th:href="@{/tasks/new}" role="button">Create new</a>
     </div>
 
     <table class="table">
@@ -22,6 +22,7 @@
             <th scope="col">Title</th>
             <th scope="col">Description</th>
             <th scope="col">Created At</th>
+            <th scope="col">Closed At</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
@@ -31,6 +32,7 @@
             <td th:text="*{{title}}">Mark</td>
             <td th:text="*{{description}}">Otto</td>
             <td th:text="*{{createdAt}}">Otto</td>
+            <td th:text="*{{closedAt}}">Otto</td>
             <td class="actions-cell">
                 <a class="btn btn-outline-dark btn-sm" th:href="|/tasks/${task.id}/edit|" role="button">Edit</a>
                 <a class="btn btn-outline-danger btn-sm" th:href="|/tasks/${task.id}/delete|" role="button">Delete</a>
