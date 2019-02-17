@@ -10,7 +10,7 @@
 
 <div class="container main-site-container">
 
-    <form th:object="${user}" method="post" th:action="@{/templates/account}">
+    <form th:object="${user}" method="post" th:action="@{/account}">
         <input
                 type="hidden"
                 th:name="${_csrf.parameterName}"
@@ -31,6 +31,22 @@
                      th:each="error : ${#fields.errors('username')}"
                      th:text="${error}">
                 </div>
+            </div>
+        </div>
+        <!--/* Field input declaration. Copy and paste for each field.
+       Do not forget to change th:with="fieldName=${'Displayed field name'},readonly=${true OR false}" and th:field="*{entityFieldName}" */-->
+        <div class="form-group row" th:with="fieldName=${'Full Name'},readonly=${false}">
+            <label th:for="${'input' + #strings.capitalize(fieldName)}" class="col-sm-2 col-form-label" th:text="${fieldName}">Created At</label>
+            <div class="col-sm-10">
+                <input type="text" th:field="*{fullName}" th:readonly="${readonly}" class="form-control" th:id="${'input' + #strings.capitalize(fieldName)}" th:placeholder="${fieldName}">
+            </div>
+        </div>
+        <!--/* Field input declaration. Copy and paste for each field.
+               Do not forget to change th:with="fieldName=${'Displayed field name'},readonly=${true OR false}" and th:field="*{entityFieldName}" */-->
+        <div class="form-group row" th:with="fieldName=${'Date Of Birth'},readonly=${false}">
+            <label th:for="${'input' + #strings.capitalize(fieldName)}" class="col-sm-2 col-form-label" th:text="${fieldName}">Created At</label>
+            <div class="col-sm-10">
+                <input type="text" th:field="*{dateOfBirth}" th:readonly="${readonly}" class="form-control" th:id="${'input' + #strings.capitalize(fieldName)}" th:placeholder="${fieldName}">
             </div>
         </div>
         <div class="form-group" th:text="#{Account.changePassword.hintText}">

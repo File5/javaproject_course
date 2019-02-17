@@ -16,6 +16,8 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Username</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Date Of Birth</th>
                 <th scope="col">Role</th>
                 <th scope="col">Actions</th>
             </tr>
@@ -24,6 +26,8 @@
             <tr th:each="user : ${users}" th:classappend="${@templateHelperImpl.isAdmin(user) ? 'table-info': ''}">
                 <th scope="row" th:text="${user.id}"></th>
                 <td th:text="${user.username}">Mark</td>
+                <td th:text="${user.fullName}">Mark</td>
+                <td th:text="${{user.dateOfBirth}}">Mark</td>
                 <td th:text="${@templateHelperImpl.isAdmin(user) ? 'Admin' : 'User'}">Otto</td>
                 <td class="actions-cell">
                     <a class="btn btn-outline-dark btn-sm" th:href="|/users/${user.username}/changeRole|" role="button">Change role</a>

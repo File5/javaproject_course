@@ -52,6 +52,8 @@ public class UserController {
             activeUser.setUsername(newUsername);
             usernameChanged = true;
         }
+        activeUser.setFullName(user.getFullName());
+        activeUser.setDateOfBirth(user.getDateOfBirth());
         activeUser.setRoles(new HashSet<>(activeUser.getRoles()));
 
         if (user.getPassword() != null && !user.getPassword().isEmpty()) {
