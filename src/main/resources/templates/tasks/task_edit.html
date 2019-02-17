@@ -50,6 +50,17 @@
                     <input type="text" th:field="*{closedAt}" th:readonly="${readonly}" class="form-control" th:id="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" th:placeholder="${fieldName}">
                 </div>
             </div>
+            <!--/* Field input declaration. Copy and paste for each field.
+                   Do not forget to change th:with="fieldName=${'Displayed field name'},readonly=${true OR false}" and th:field="*{entityFieldName}" */-->
+            <div class="form-group row" th:with="fieldName=${'Assigned To'},readonly=${true}">
+                <label th:for="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" class="col-sm-2 col-form-label" th:text="${fieldName}">Created At</label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           th:value="*{assignedTo != null} ? |(Id *{assignedTo.id}) *{assignedTo.fullName}| : ''"
+                           th:readonly="${readonly}" class="form-control"
+                           th:id="${'input' + @templateHelperImpl.removeSpaces(fieldName)}" th:placeholder="${fieldName}">
+                </div>
+            </div>
             <button type="submit" class="btn btn-lg btn-primary">Save</button>
         </form>
     </div>
