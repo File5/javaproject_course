@@ -1,5 +1,7 @@
 package com.example.javaproject.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -39,6 +41,7 @@ public class Task {
         this.description = description;
     }
 
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     public Date getCreatedAt() {
         return createdAt;
     }

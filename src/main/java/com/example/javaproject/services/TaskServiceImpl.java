@@ -27,4 +27,9 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> getAll() {
         return taskRepository.findAll();
     }
+
+    @Override
+    public void save(Task task) {
+        taskRepository.saveAndFlush(task);
+    }
 }

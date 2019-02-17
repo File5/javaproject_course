@@ -26,11 +26,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="task : ${tasks}">
+        <tr th:each="task : ${tasks}" th:object="${task}">
             <th scope="row" th:text="${task.id}"></th>
-            <td th:text="${task.title}">Mark</td>
-            <td th:text="${task.description}">Otto</td>
-            <td th:text="${task.createdAt}">Otto</td>
+            <td th:text="*{{title}}">Mark</td>
+            <td th:text="*{{description}}">Otto</td>
+            <td th:text="*{{createdAt}}">Otto</td>
             <td class="actions-cell">
                 <a class="btn btn-outline-dark btn-sm" th:href="|/tasks/${task.id}/edit|" role="button">Edit</a>
                 <a class="btn btn-outline-danger btn-sm" th:href="|/tasks/${task.id}/delete|" role="button">Delete</a>

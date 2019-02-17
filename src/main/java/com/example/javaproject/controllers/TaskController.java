@@ -33,11 +33,6 @@ public class TaskController {
     @RequestMapping(value = {"/tasks/{id}/edit"}, method = RequestMethod.GET)
     public String getEditTaskForm(Model model, @PathVariable("id") Long id) {
         Task task = taskService.findById(id);
-        task = new Task();
-        task.setId(228L);
-        task.setTitle("Title of task");
-        task.setDescription("Description of task");
-        task.setCreatedAt(new Date());
         model.addAttribute("create", false);
         model.addAttribute("task", task);
         return "tasks/task_edit";
@@ -45,6 +40,7 @@ public class TaskController {
 
     @RequestMapping(value = {"/tasks/{id}/edit"}, method = RequestMethod.POST)
     public String saveTask(@ModelAttribute("task") Task task, BindingResult bindingResult, Model model, @PathVariable("id") Long id) {
+        task.setId(id);
         taskService.save(task);
         return "redirect:/tasks";
     }

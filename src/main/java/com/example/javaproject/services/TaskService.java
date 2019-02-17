@@ -7,4 +7,5 @@ import java.util.List;
 public interface TaskService {
     Task findById(Long id);
     List<Task> getAll();
+    void save(Task task);
 }
