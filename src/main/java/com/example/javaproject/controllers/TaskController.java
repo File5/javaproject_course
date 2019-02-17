@@ -80,9 +80,25 @@ public class TaskController {
             i++;
         }
         model.addAttribute("create", false);
+        model.addAttribute("nullable", true);
         model.addAttribute("task", task);
         model.addAttribute("values", values);
         model.addAttribute("checkedIndex", selectedIndex);
         return "tasks/task_edit_assignedTo";
+    }
+
+    @RequestMapping(value = {"/tasks/{id}/editAssignedTo"}, method = RequestMethod.POST)
+    public String saveTask(Model model, @PathVariable("id") Long id, @RequestParam("radioAssignedTo") Long assignedToId) {
+        Task task = taskService.findById(id);
+
+        if (assignedToId != null) {
+            User user = userService.findById(assignedToId);
+            task.setAssignedTo(user);
+        } else {
+            task.setAssignedTo(null);
+        }
+        taskService.save(task);
+
+        return "redirect:/tasks";
     }
 }
