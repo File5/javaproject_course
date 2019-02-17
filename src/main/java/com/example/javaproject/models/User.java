@@ -18,6 +18,8 @@ public class User {
     private Date dateOfBirth;
     private Set<Role> roles;
 
+    private Set<Task> tasks;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -78,6 +80,15 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "assignedTo")
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
