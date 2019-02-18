@@ -1,6 +1,7 @@
 package com.example.javaproject.controllers;
 
 import com.example.javaproject.models.Project;
+import com.example.javaproject.models.Task;
 import com.example.javaproject.models.User;
 import com.example.javaproject.services.ProjectService;
 import com.example.javaproject.services.UserService;
@@ -10,10 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -50,6 +48,14 @@ public class ProjectController {
         project.setAssignedTo(existingProject.getAssignedTo());
         projectService.save(project);
         return "redirect:/projects";
+    }
+
+    @RequestMapping(value = {"/projects/{id}/tasks"}, method = RequestMethod.GET)
+    public String listOfProjectTasks(Model model, @PathVariable("id") Long id) {
+        Project project = projectService.findById(id);
+        Set<Task> tasks = project.getTasks();
+        model.addAttribute("tasks", tasks);
+        return "tasks/task_list";
     }
 
     @RequestMapping(value = {"/projects/new"}, method = RequestMethod.GET)

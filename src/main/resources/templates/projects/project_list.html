@@ -32,6 +32,7 @@
             <td th:text="*{{startDate}}">Otto</td>
             <td th:text="*{{endDate}}">Otto</td>
             <td class="actions-cell">
+                <a class="btn btn-outline-success btn-sm" th:href="|/projects/${project.id}/tasks|" role="button">Show tasks</a>
                 <a class="btn btn-outline-dark btn-sm" th:href="|/projects/${project.id}/edit|" role="button">Edit</a>
                 <a class="btn btn-outline-danger btn-sm" th:href="|/projects/${project.id}/delete|" role="button">Delete</a>
             </td>
