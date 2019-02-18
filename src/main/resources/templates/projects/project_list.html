@@ -22,6 +22,7 @@
             <th scope="col">Name</th>
             <th scope="col">Start Date</th>
             <th scope="col">End Date</th>
+            <th scope="col">Assigned To</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
@@ -31,6 +32,7 @@
             <td th:text="*{{name}}">Mark</td>
             <td th:text="*{{startDate}}">Otto</td>
             <td th:text="*{{endDate}}">Otto</td>
+            <td th:text="*{assignedTo != null} ? *{assignedTo.fullName} : ''">Otto</td>
             <td class="actions-cell">
                 <a class="btn btn-outline-success btn-sm" th:href="|/projects/${project.id}/tasks|" role="button">Show tasks</a>
                 <a class="btn btn-outline-dark btn-sm" th:href="|/projects/${project.id}/edit|" role="button">Edit</a>

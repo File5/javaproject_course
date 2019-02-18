@@ -23,6 +23,8 @@
             <th scope="col">Description</th>
             <th scope="col">Created At</th>
             <th scope="col">Closed At</th>
+            <th scope="col">Assigned To</th>
+            <th scope="col">Project</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
@@ -33,6 +35,8 @@
             <td th:text="*{{description}}">Otto</td>
             <td th:text="*{{createdAt}}">Otto</td>
             <td th:text="*{{closedAt}}">Otto</td>
+            <td th:text="*{assignedTo != null} ? *{assignedTo.fullName} : ''">Otto</td>
+            <td th:text="*{project != null} ? *{project.name} : ''">Otto</td>
             <td class="actions-cell">
                 <a class="btn btn-outline-dark btn-sm" th:href="|/tasks/${task.id}/edit|" role="button">Edit</a>
                 <a class="btn btn-outline-danger btn-sm" th:href="|/tasks/${task.id}/delete|" role="button">Delete</a>
