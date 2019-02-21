@@ -26,7 +26,12 @@ public class TemplateHelperImpl implements TemplateHelper {
 
     @Override
     public boolean isAdmin() {
-        return securityService.findLoggedInUser().getRoles().contains(adminRole);
+        User loggedInUser = securityService.findLoggedInUser();
+        if (loggedInUser != null && loggedInUser.getRoles() != null) {
+            return loggedInUser.getRoles().contains(adminRole);
+        } else {
+            return false;
+        }
     }
 
     @Override
